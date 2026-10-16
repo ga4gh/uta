@@ -77,7 +77,7 @@ Locally: `pip install -e .[test]`, then `python -m unittest` from the repo root.
 ## Conventions
 
 - Python 3.10 or 3.11 in practice: `loading.py` uses `str | tuple` annotations (3.10+), while `cli.py` still calls `ConfigParser.readfp` and `pkg_resources` (gone in 3.12). The Docker image is 3.10. `pyproject.toml` says `>=3.9`; that is aspirational.
-- ruff (`uv tool run ruff check .`): 120 columns, max complexity 10 (`[tool.ruff]` in `pyproject.toml`; tests, `archive/` and `misc/EnsemblUTA/` excluded). Existing code has outstanding violations; don't add new ones. Code style is mixed-era; match the file you're in.
+- ruff (`uv run --only-group dev ruff check .`; enforced in CI by `.github/workflows/lint.yml`): 120 columns, max complexity 10 (`[tool.ruff]` in `pyproject.toml`; tests, `archive/` and `misc/EnsemblUTA/` excluded). Known complexity (C901) violations carry a line-level `# noqa`; don't add new ones. Code style is mixed-era; match the file you're in.
 - Scripts configure logging via `importlib_resources.files("uta").joinpath("etc/logging.conf")` and write results to stdout, logs to stderr, so they compose with `| gzip -c > out.gz`.
 - Commit messages and PR titles follow [Conventional Commits](https://www.conventionalcommits.org/) (`type(scope): subject`, types `build|chore|ci|docs|feat|fix|perf|refactor|revert|style|test`). CI (`.github/workflows/commits.yml`) checks every commit in a PR and the PR title with commitizen.
 - Branch from `main`, PR back. Recent branches are `issue-<n>-<slug>`; Invitae-era commits carry `IPVC-####` Jira ids. CODEOWNERS is `@biocommons/maintainers`.
