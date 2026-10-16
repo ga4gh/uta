@@ -1,7 +1,7 @@
 import csv
 import itertools
 
-from uta.exceptions import *
+from uta.exceptions import UTAError
 
 
 class SeqGeneParser(object):

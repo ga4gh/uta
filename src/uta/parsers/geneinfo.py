@@ -1,6 +1,6 @@
 import csv
 
-from uta.exceptions import *
+from uta.exceptions import UTAError
 
 
 class GeneInfoParser(object):

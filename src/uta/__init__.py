@@ -6,7 +6,15 @@ import warnings
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 
-from uta.exceptions import *
+from uta.exceptions import (  # noqa: F401
+    DatabaseError,
+    EutilsDownloadError,
+    ExonStructureMismatchError,
+    InvalidHGVSVariantError,
+    InvalidIntervalError,
+    InvalidTranscriptError,
+    UTAError,
+)
 from uta import models  # noqa: F401
 
 

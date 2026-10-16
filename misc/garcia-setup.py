@@ -1,5 +1,5 @@
 from uta.db.transcriptdb import TranscriptDB
-from uta.exceptions import *
+from uta.exceptions import UTAError
 from uta.tools.transcriptmapper import TranscriptMapper
 
 import csv
