@@ -170,7 +170,7 @@ class TxAln:
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger("alignment_metrics")
 
-p = re.compile("\d+[=DIX]")
+p = re.compile(r"\d+[=DIX]")
 MATCH = "="
 INS = "I"
 DEL = "D"

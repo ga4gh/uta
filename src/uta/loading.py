@@ -105,7 +105,6 @@ def align_exons(session, opts, cf):
         try:
             tx_seq = _fetch_seq(r.tx_ac, r.tx_start_i, r.tx_end_i)
         except KeyError:
-            import IPython; IPython.embed()	  ### TODO: Remove IPython.embed()
             logger.warning(
                 "{r.tx_ac}: Not in sequence sources; can't align".format(r=r))
             ac_warning.add(r.tx_ac)
@@ -460,9 +459,11 @@ def load_ncbi_seqgene(session, opts, cf):
     o_refseq = session.query(usam.Origin).filter(
         usam.Origin.name == "NCBI RefSeq").one()
 
-    sg_filter = lambda r: (r["transcript"].startswith("NM_")
-                           and r["group_label"] == "GRCh37.p10-Primary Assembly"
-                           and r["feature_type"] in ["CDS", "UTR"])
+    def sg_filter(r):
+        return (r["transcript"].startswith("NM_")
+                and r["group_label"] == "GRCh37.p10-Primary Assembly"
+                and r["feature_type"] in ["CDS", "UTR"])
+
     sgparser = uta.parsers.seqgene.SeqGeneParser(gzip.open(opts["FILE"], 'rt'),
                                                  filter=sg_filter)
     slurp = sorted(list(sgparser),
@@ -604,7 +605,7 @@ def load_seqinfo(session, opts, cf):
         if i_md5 % update_period == 1:
             logger.info(
                 "{n_created} annotations created/{i_md5} sequences seen ({p:.1f}%)/{n_rows} sequences total".format(
-                    n_created=n_created, i_md5=i_md5, n_rows=n_rows, md5=md5, p=i_md5 / n_rows * 100))
+                    n_created=n_created, i_md5=i_md5, n_rows=n_rows, p=i_md5 / n_rows * 100))
             session.commit()
     session.commit()
 

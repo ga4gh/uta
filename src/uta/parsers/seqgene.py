@@ -58,7 +58,9 @@ if __name__ == "__main__":
     import gzip
     import sys
     fh = gzip.open(sys.argv[1])
-    nm_filter = lambda r: r["transcript"].startswith("NM_")
+    def nm_filter(r):
+        return r["transcript"].startswith("NM_")
+
     sgparser = SeqGeneParser(fh, filter=nm_filter)
     slurp = list(sgparser)
     slurp.sort(key=lambda r: (
