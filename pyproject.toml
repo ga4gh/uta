@@ -85,6 +85,11 @@ package-data = {"sample" = ["*.dat"]}
 requires = ["setuptools>=64"]
 build-backend = "setuptools.build_meta"
 
+[dependency-groups]
+dev = [
+    "commitizen>=4.19.2",
+]
+
 [tool.ruff]
 line-length = 120
 # archive/ and misc/EnsemblUTA/ are dead code (see AGENTS.md)

@@ -35,14 +35,14 @@ COPY etc ./etc
 COPY misc ./misc
 COPY sbin ./sbin
 COPY src ./src
-RUN uv sync --frozen
+RUN uv sync --frozen --no-dev
 
 
 # UTA test image
 FROM uta as uta-test
 RUN DEBIAN_FRONTEND=noninteractive apt-get -yq install postgresql
 COPY tests ./tests
-RUN uv sync --frozen --extra test
+RUN uv sync --frozen --no-dev --extra test
 RUN useradd uta-tester
 RUN chown -R uta-tester .
 USER uta-tester
