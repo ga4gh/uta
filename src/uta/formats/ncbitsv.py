@@ -15,7 +15,6 @@ rows of such files as dictionaries.
 """
 
 import csv
-import re
 
 
 class NCBITSVReader(object):

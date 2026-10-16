@@ -7,12 +7,12 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 
 from uta.exceptions import *
-from uta import models
+from uta import models  # noqa: F401
 
 
 try:
     __version__ = importlib.metadata.version(__package__)
-except importlib.metadata.PackageNotFoundError as e:
+except importlib.metadata.PackageNotFoundError:
     warnings.warn(
         "can't get __version__ because %s package isn't installed" % __package__, Warning)
     __version__ = None

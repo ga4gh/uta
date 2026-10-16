@@ -1,12 +1,9 @@
 import argparse
 import logging
-import re
 from bioutils.assemblies import make_name_ac_map
 from contextlib import ExitStack
-from dataclasses import dataclass, field
 
 import psycopg2
-import six
 
 import uta
 
@@ -136,7 +133,7 @@ def main(transcripts_file, genome_build, db_url, schema_name):
         exons_fh.write("hgnc\ttx_ac\talt_ac\talt_aln_method\talt_strand\tords\ttx_ac_se_i\talt_ac_se_i\tcigars\n")
 
         # transcript identity
-        tx_identity_fh = stack.enter_context(
+        stack.enter_context(
             open(f"{schema_name}_transcript_identity.tsv", "w")
         )
 

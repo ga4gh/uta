@@ -43,7 +43,6 @@ import re
 from dataclasses import dataclass, field
 
 import psycopg2
-import six
 
 import uta
 

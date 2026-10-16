@@ -301,13 +301,8 @@ def load_assoc_ac(session, opts, cf):
                 logger.info(f"Added: {aa.tx_ac}, {aa.pro_ac}, {aa.origin}")
             else:
                 logger.info(f"Already exists: {file_row}")
-                # All fields should should match when unique identifiers match.
-                # Discrepancies should be investigated.
-                existing_row = {
-                    "origin": aa.origin,
-                    "pro_ac": aa.pro_ac,
-                    "tx_ac": aa.tx_ac,
-                }
+                # TODO: All fields should match when unique identifiers match; compare the existing row
+                # with the file row and investigate discrepancies.
 
 
 def load_exonset(session, opts, cf):
@@ -571,7 +566,7 @@ def load_seqinfo(session, opts, cf):
         # this is to satisfy a FK dependency, which should be reconsidered
         si = sis[0]
         try:
-            u_seq = _upsert_seq(si)
+            _upsert_seq(si)
         except RuntimeError as e:
             logger.exception(e)
             continue

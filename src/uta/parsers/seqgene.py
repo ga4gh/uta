@@ -50,8 +50,6 @@ class SeqGeneParser(object):
 
 if __name__ == "__main__":
     import gzip
-    import prettytable
-    import IPython
     import sys
     fh = gzip.open(sys.argv[1])
     nm_filter = lambda r: r["transcript"].startswith("NM_")
