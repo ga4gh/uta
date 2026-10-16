@@ -92,13 +92,19 @@ dev = [
 
 [tool.ruff]
 line-length = 120
-# archive/ and misc/EnsemblUTA/ are dead code (see AGENTS.md)
-extend-exclude = ["tests", "archive", "misc/EnsemblUTA"]
+# archive/, misc/EnsemblUTA/ and misc/bermuda/ are dead code (see AGENTS.md)
+extend-exclude = ["tests", "archive", "misc/EnsemblUTA", "misc/bermuda"]
 
 [tool.ruff.lint]
 select = ["E", "F", "W", "C90"]
 # E129, E221, E241, E251, E303 are preview-only in ruff
 ignore = ["W291"]
+
+[tool.ruff.lint.per-file-ignores]
+# Applied migrations hold long SQL strings and the `import sqlalchemy as sa` from alembic's template
+"src/alembic/versions/*" = ["E501", "F401"]
+# Imports the models after configuring logging
+"src/alembic/env.py" = ["E402"]
 
 [tool.ruff.lint.mccabe]
 max-complexity = 10
