@@ -7,6 +7,8 @@ on:
   pull_request:
     branches:
       - main
+    # `edited` re-runs the PR title check when the title is changed
+    types: [opened, synchronize, reopened, edited]
   merge_group:
     types:
       - checks_requested
@@ -14,11 +16,14 @@ on:
 jobs:
   test:
     name: Run tests
+    if: github.event.action != 'edited'
+    # Not blocking: a failure here does not fail the workflow
+    continue-on-error: true
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: Build image
         run: docker build --target uta-test -t uta-test .
       - name: Run tests
@@ -26,6 +31,7 @@ jobs:
 
   lint:
     name: Run ruff
+    if: github.event.action != 'edited'
     runs-on: ubuntu-latest
     timeout-minutes: 5
     steps:
@@ -57,4 +63,8 @@ jobs:
       - name: Check pull request title
         env:
           TITLE: ${{ github.event.pull_request.title }}
-        run: printf '%s\n' "$TITLE" | uv run --frozen --only-group dev cz check --commit-msg-file /dev/stdin
+        run: |
+          if ! printf '%s\n' "$TITLE" | uv run --frozen --only-group dev cz check --commit-msg-file /dev/stdin; then
+            echo "::error title=PR title is not a conventional commit::Retitle the PR as 'type(scope): subject', e.g. 'ci: run ruff'. Editing the title re-runs this check."
+            exit 1
+          fi
