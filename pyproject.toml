@@ -55,7 +55,7 @@ dependencies = [
   "pytz",
   "recordtype",
   "retry",
-  "sqlalchemy",
+  "sqlalchemy<2.1",
   "uta-align>=0.3",
 ]
 
