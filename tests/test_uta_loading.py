@@ -390,11 +390,12 @@ class TestUtaLoading(unittest.TestCase):
         ), patch("uta.loading.logger") as mock_logger:
             ul.load_exonset(self.session, {"FILE": "tests/data/exonsets.mm-exons.gz"}, cf)
 
-            assert mock_logger.warning.called_with(
-                "Exon structure mismatch: 4 exons in transcript NM_001005484.2; 3 in alignment NC_000001.11"
+            logged = [str(call.args[0]) for call in mock_logger.exception.call_args_list]
+            self.assertIn(
+                "Exon structure mismatch: 4 exons in transcript NM_001005484.2; 3 in alignment NC_000001.11", logged
             )
-            assert mock_logger.warning.called_with(
-                "Exon structure mismatch: 1 exons in transcript NM_000864.5; 2 in alignment NC_000001.11"
+            self.assertIn(
+                "Exon structure mismatch: 1 exons in transcript NM_000864.5; 2 in alignment NC_000001.11", logged
             )
 
         # check that the exons for NM_000864.5 and NM_001005484.2 were not loaded,
