@@ -50,7 +50,7 @@ def _make_key(args, kwds, typed,
     return _HashedSeq(key)
 
 
-def lru_cache(maxsize=100, typed=False):
+def lru_cache(maxsize=100, typed=False):  # noqa: C901
     """Least-recently-used cache decorator.
 
     If *maxsize* is set to None, the LRU features are disabled and the cache
@@ -75,7 +75,7 @@ def lru_cache(maxsize=100, typed=False):
     # The internals of the lru_cache are encapsulated for thread safety and
     # to allow the implementation to change (including a possible C version).
 
-    def decorating_function(user_function):
+    def decorating_function(user_function):  # noqa: C901
 
         cache = dict()
         stats = [0, 0]    # make statistics updateable non-locally

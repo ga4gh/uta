@@ -92,7 +92,7 @@ def _get_chr_ac_map(genome_build):
     return filtered_chr_ac_map
 
 
-def main(transcripts_file, genome_build, db_url, schema_name):
+def main(transcripts_file, genome_build, db_url, schema_name):  # noqa: C901
     logger.info(f"connecting to {db_url}")
     session = uta.connect(db_url)
 

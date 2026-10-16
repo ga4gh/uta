@@ -35,7 +35,7 @@ usam = uta.models
 
 logger = logging.getLogger(__name__)
 
-def align_exons(session, opts, cf):
+def align_exons(session, opts, cf):  # noqa: C901
     # N.B. setup.py declares dependencies for using uta as a client.  The
     # imports below are loading depenencies only and are not in setup.py.
 
@@ -306,7 +306,7 @@ def load_assoc_ac(session, opts, cf):
                 # with the file row and investigate discrepancies.
 
 
-def load_exonset(session, opts, cf):
+def load_exonset(session, opts, cf):  # noqa: C901
     # exonsets and associated exons are loaded together
 
     update_period = 25
@@ -479,7 +479,7 @@ def load_ncbi_seqgene(session, opts, cf):
         else:
             t = resp.one()
 
-        es = usam.ExonSet(
+        es = usam.ExonSet(  # noqa: F841
             transcript_id=t.transcript_id,
             ref_nseq_id=99,
             strand=ti["strand"],
@@ -518,7 +518,7 @@ def load_origin(session, opts, cf):
     session.commit()
 
 
-def load_seqinfo(session, opts, cf):
+def load_seqinfo(session, opts, cf):  # noqa: C901
     """load Seq entries with accessions from fasta file
     """
 
@@ -674,7 +674,7 @@ def load_sql(session, opts, cf):
     session.commit()
 
 
-def load_txinfo(session, opts, cf):
+def load_txinfo(session, opts, cf):  # noqa: C901
     self_aln_method = "transcript"
     update_period = 250
     sf = None                 # established on first use, below

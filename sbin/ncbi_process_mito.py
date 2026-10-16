@@ -245,7 +245,7 @@ def get_mito_genes(gbff_filepath: str) -> Iterable[MitoGeneData]:
                     )
 
 
-def main(ncbi_accession: str, output_dir: str) -> None:
+def main(ncbi_accession: str, output_dir: str) -> None:  # noqa: C901
     # get input files
     input_files = download_mito_files(output_dir=output_dir, accession=ncbi_accession)
 

@@ -87,7 +87,7 @@ class SeqRecordFacade:
             return []
 
     @property
-    def gene_type(self):
+    def gene_type(self):  # noqa: C901
         if self.cds_feature:
             return "protein-coding"
         elif "ncRNA" in self.features_by_type:
