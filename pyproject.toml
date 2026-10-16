@@ -97,3 +97,6 @@ ignore = ["W291"]
 
 [tool.ruff.lint.mccabe]
 max-complexity = 10
+
+[tool.commitizen]
+name = "cz_conventional_commits"

@@ -1,0 +1,23 @@
+name: Conventional Commits
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  commits:
+    name: Check commit messages and PR title
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Check commits in the pull request
+        run: pipx run commitizen==4.19.2 cz check --rev-range "origin/${{ github.base_ref }}..HEAD"
+      - name: Check pull request title
+        env:
+          TITLE: ${{ github.event.pull_request.title }}
+        run: printf '%s\n' "$TITLE" | pipx run commitizen==4.19.2 cz check --commit-msg-file /dev/stdin
